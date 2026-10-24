@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #111110;
+  --color-graphite: #191919;
+  --color-graphite-2: #222220;
+  --color-line: rgb(240 238 230 / 0.09);
+  --color-line-strong: rgb(240 238 230 / 0.16);
+  --color-terracotta: #d97757;
+  --color-terracotta-deep: #c4623f;
+  --color-cream: #f0eee6;
+  --color-ivory: #faf9f5;
+  --color-stone: #a8a29e;
+  --color-stone-dim: #78716c;
+
+  /* shadcn semantic tokens mapped to the CINELANE palette */
+  --color-background: var(--color-ink);
+  --color-foreground: var(--color-cream);
+  --color-primary: var(--color-terracotta);
+  --color-primary-foreground: var(--color-ink);
+  --color-muted-foreground: var(--color-stone);
+  --color-border: var(--color-line);
+  --color-ring: var(--color-terracotta);
+
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
+
+  --ease-cine: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-accordion-down: accordion-down 420ms var(--ease-cine);
+  --animate-accordion-up: accordion-up 320ms var(--ease-cine);
+
+  @keyframes accordion-down {
+    from { height: 0; opacity: 0; }
+    to { height: var(--radix-accordion-content-height); opacity: 1; }
+  }
+  @keyframes accordion-up {
+    from { height: var(--radix-accordion-content-height); opacity: 1; }
+    to { height: 0; opacity: 0; }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-ink text-cream font-sans antialiased;
+    overflow-x: clip;
+  }
+  ::selection {
+    background: rgb(217 119 87 / 0.35);
+    color: var(--color-ivory);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-terracotta);
+    outline-offset: 3px;
+  }
+  section[id] {
+    scroll-margin-top: 88px;
+  }
+}
+
+@layer components {
+  .container-cine {
+    @apply mx-auto w-full max-w-[1200px] px-5 sm:px-8;
+  }
+  .eyebrow {
+    @apply text-[11px] font-medium uppercase tracking-[0.22em] text-stone;
+  }
+  .display {
+    @apply font-sans font-semibold tracking-[-0.035em] text-ivory;
+    text-wrap: balance;
+  }
+  .editorial {
+    @apply font-serif font-normal italic tracking-[-0.01em];
+  }
+  .body-copy {
+    @apply text-[17px] leading-[1.65] text-stone sm:text-lg;
+    text-wrap: pretty;
+  }
+  .hairline {
+    background: linear-gradient(90deg, transparent, var(--color-line-strong), transparent);
+    height: 1px;
+  }
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translate3d(0, 16px, 0); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes grow {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+@keyframes scan {
+  0% { top: -4rem; }
+  100% { top: 100%; }
+}
+
+/* Scroll reveal — content stays visible when JS or motion is unavailable */
+.reveal {
+  opacity: 1;
+}
+.js .reveal {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+  transition:
+    opacity 900ms var(--ease-cine),
+    transform 900ms var(--ease-cine);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
