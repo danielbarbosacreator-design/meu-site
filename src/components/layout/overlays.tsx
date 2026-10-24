@@ -136,7 +136,7 @@ export function ConsentBanner() {
       <p className="text-sm leading-relaxed text-stone">
         Usamos cookies de medição (Google e Meta) para entender o desempenho da página e das campanhas, apenas com a sua
         permissão. Veja a{" "}
-        <a href="/privacidade/" className="text-cream underline underline-offset-4">
+        <a href={`${import.meta.env.BASE_URL}privacidade/`} className="text-cream underline underline-offset-4">
           política de privacidade
         </a>
         .

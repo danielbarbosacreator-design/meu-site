@@ -13,10 +13,10 @@ export function Footer() {
             </p>
           </div>
           <nav aria-label="Institucional" className="flex flex-wrap gap-x-8 gap-y-3 text-sm">
-            <a href="/termos/" className="text-stone transition-colors hover:text-cream">
+            <a href={`${import.meta.env.BASE_URL}termos/`} className="text-stone transition-colors hover:text-cream">
               Termos de uso
             </a>
-            <a href="/privacidade/" className="text-stone transition-colors hover:text-cream">
+            <a href={`${import.meta.env.BASE_URL}privacidade/`} className="text-stone transition-colors hover:text-cream">
               Privacidade
             </a>
             {site.contactEmail ? (
