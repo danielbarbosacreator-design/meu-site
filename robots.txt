@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://danielbarbosacreator-design.github.io/meu-site/sitemap.xml
